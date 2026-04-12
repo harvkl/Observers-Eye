@@ -1,4 +1,4 @@
-# файл с графикой
+# ui_main.py - файл с интерфейсом
 
 #Контейнеры: QWidget, QMainWindow, QDialog, QFrame
 #Элементы ввода: QPushButton, QLineEdit, QTextEdit, QCheckBox, QRadioButton
@@ -10,6 +10,7 @@ import sys # доступ к аргументам cmd
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QPushButton, QComboBox, QListWidget, QGridLayout
 from logic import Logic
+from logic import Color
 
 
 # подкласс QMainWindow для настройки окна
@@ -20,20 +21,19 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Observer's Eye")
         self.setFixedSize(1280, 720)
 
-        # создали центральный виджет
-        central_widget = QWidget() 
 
-        # Создаем сеточную разметку для организации элементов
-        grid_layout = QGridLayout()
+        central_widget = QWidget() # создали центральный виджет / макет
+        grid_layout = QGridLayout() # Создаем сеточную разметку для организации элементов
 
-        central_widget.setLayout(grid_layout)
+        central_widget.setLayout(grid_layout) # для макета задаем сеточную разметку
+        self.setCentralWidget(central_widget) # устанавливаем разметку для окна
 
-        # Устанавливаем разметку для окна
-        self.setCentralWidget(central_widget)
 
-        widget = QListWidget()
-        widget.addItems(["Perfomance", "Results", "Info"])
-        grid_layout.addWidget(widget, 0, 0)
+        #widget = QListWidget()
+        #widget.addItems(["Perfomance", "Results", "Info"])
+        grid_layout.addWidget(Color("Red"), 0, 0)
+        grid_layout.addWidget(Color("Green"), 0, 0)
+        grid_layout.addWidget(Color("Blue"), 0, 0)
 
 
 if __name__ == "__main__":
