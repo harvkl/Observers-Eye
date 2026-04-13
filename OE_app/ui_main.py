@@ -8,7 +8,20 @@
 
 import sys # доступ к аргументам cmd
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QPushButton, QComboBox, QListWidget, QGridLayout
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import (
+    QApplication, 
+    QWidget, 
+    QLabel, 
+    QMainWindow, 
+    QPushButton, 
+    QComboBox, 
+    QListWidget, 
+    QGridLayout, 
+    QVBoxLayout, 
+    QHBoxLayout, 
+    QStackedLayout,
+    QTabWidget)
 from logic import Logic
 from logic import Color
 
@@ -21,24 +34,44 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Observer's Eye")
         self.setFixedSize(1280, 720)
 
+        #grid_layout = QGridLayout() # Создаем сеточную разметку для организации элементов
 
-        central_widget = QWidget() # создали центральный виджет / макет
-        grid_layout = QGridLayout() # Создаем сеточную разметку для организации элементов
+        '''layout1 = QStackedLayout()
+        layout2 = QVBoxLayout()
+        layout3 = QHBoxLayout()
 
-        central_widget.setLayout(grid_layout) # для макета задаем сеточную разметку
-        self.setCentralWidget(central_widget) # устанавливаем разметку для окна
-
-
-        #widget = QListWidget()
-        #widget.addItems(["Perfomance", "Results", "Info"])
-        grid_layout.addWidget(Color("Red"), 0, 0)
-        grid_layout.addWidget(Color("Green"), 0, 0)
-        grid_layout.addWidget(Color("Blue"), 0, 0)
+        layout3.addWidget(QPushButton("Perfomance"))
+        layout3.addWidget(QPushButton("Results"))
+        layout3.addWidget(QPushButton("Info"))
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv) # класс QApplication содержит цикл событий и нужен лишь в 1-ом экземпляре
-    # создание окна
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec())
+        layout2.addLayout(layout3)
+        layout2.addLayout(layout1)
+
+        layout1.addWidget(Color("White"))
+        layout1.addWidget(Color("Blue"))
+        layout1.addWidget(Color("White"))
+
+        layout1.setCurrentIndex(1) #реализация вкладок через это!!!!!!!!!'''
+
+        tabs = QTabWidget()
+        tabs.setTabPosition(QTabWidget.TabPosition.North)
+        tabs.setMovable(True)
+
+        tabs.addTab(Color("Red"), "Perfomance")
+        tabs.addTab(Color("Blue"), "Results")
+        tabs.addTab(Color("White"), "Info")
+        tabs.setTabIcon(0, QIcon("anchor.png"))
+        tabs.setTabIcon(1, QIcon("report.png"))
+        tabs.setTabIcon(2, QIcon("information.png"))
+
+
+
+        #central_widget = QWidget() # создали центральный виджет
+        #central_widget.setLayout(layout2) # для макета задаем сеточную разметку
+        self.setCentralWidget(tabs) # устанавливаем разметку для окна
+
+
+        #QListWidget().addItems(["Perfomance", "Results", "Info"])
+        #grid_layout.addWidget(Color("Blue"), 0, 0)
+        #grid_layout.addWidget(Color("Yellow"), 1, 1)
