@@ -60,9 +60,9 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(tabs) # устанавливаем разметку для окна
 
         # создаем таймер для апдейта таба с листом процессов
-        timer = QTimer()
-        timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
-        timer.start(2000) # апдейт каждые 2 секунды
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
+        self.timer.start(2000) # апдейт каждые 2 секунды
 
         self.update_perfomace_tab()
 
@@ -112,7 +112,10 @@ class MainWindow(QMainWindow):
 
         self.info_label = QLabel("INFO ABOUT PROGRAMM")
         self.text_block = QTextEdit()
-        self.text_block.setText("Hello. It's a simple tool that shows us the information about current processes and cpu status. This programm made by a begginer, so don't be hard on me.")
+
+        users = self.logic.get_users()
+
+        self.text_block.setText(f"Hello, {users[0].name}. It's a simple tool that shows us the information about current processes and cpu status. This programm made by a begginer, so don't be hard on me.")
         self.text_block.setReadOnly(True)
 
         layout.addWidget(self.info_label)
@@ -150,10 +153,14 @@ class MainWindow(QMainWindow):
             try:
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(f"Report from Observer's Eye\n")
-                    f.write(f"Top 20 processes on CPU:\n")
+                    f.write(f"Top 20 processes on CPU:\n\n")
+
+                    f.write("============================\n")
 
                     for process in processes:
-                        f.write(f"ID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0):.1f}% | RAM: {process.get('memory_percent', 0):.1f}%")
+                        f.write(f"ID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0):.1f}% | RAM: {process.get('memory_percent', 0):.1f}%\n")
+
+                    f.write("============================")
                     
                     QMessageBox.information(self, "Success", f"Results were saved in {file_path}")
             except Exception as e:

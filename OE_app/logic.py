@@ -27,6 +27,14 @@ class Logic:
         processes.sort(key=lambda x: x.get('cpu_percent', 0), reverse=True) #сортировка по убыванию
         return processes[:20] # возвращаем 20 процессов
     
+    @staticmethod
+    def get_users():
+        users = []
+
+        users = psutil.users()
+
+        return users
+    
 class Color(QWidget):
 
     def __init__(self, color):
