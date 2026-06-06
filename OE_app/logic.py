@@ -4,12 +4,28 @@ import sys # доступ к аргументам cmd
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QPushButton, QComboBox, QListWidget, QGridLayout
 from PyQt6.QtGui import QPalette, QColor
+import psutil
 
 class Logic:
     # класс где будет хранится вся логика приложения
 
-    def blabla():
-        return "blabla"
+    @staticmethod
+    def get_process_list():
+        processes = []
+
+        for process in psutil.process_iter([
+            'pid',
+            'name',
+            'cpu_percent',
+            'memory_percent'
+        ]):
+            try:
+                processes.append(process.info)
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                continue
+        
+        processes.sort(key=lambda x: x.get('cpu_percent', 0), reverse=True) #сортировка по убыванию
+        return processes[:20] # возвращаем 20 процессов
     
 class Color(QWidget):
 
