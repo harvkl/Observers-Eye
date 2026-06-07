@@ -27,6 +27,7 @@ from PyQt6.QtWidgets import (
     QTabWidget)'''
 from logic import Logic
 from logic import Color
+from datetime import datetime
 
 
 # подкласс QMainWindow для настройки окна
@@ -113,9 +114,9 @@ class MainWindow(QMainWindow):
         self.info_label = QLabel("INFO ABOUT PROGRAMM")
         self.text_block = QTextEdit()
 
-        users = self.logic.get_users()
+        self.users = self.logic.get_users()
 
-        self.text_block.setText(f"Hello, {users[0].name}. It's a simple tool that shows us the information about current processes and cpu status. This programm made by a begginer, so don't be hard on me.")
+        self.text_block.setText(f"Hello, {self.users[0].name}. It's a simple tool that shows us the information about current processes and cpu status. This programm made by a begginer, so don't be hard on me.")
         self.text_block.setReadOnly(True)
 
         layout.addWidget(self.info_label)
@@ -136,15 +137,16 @@ class MainWindow(QMainWindow):
 
         for process in processes:
             # делаем строчку которую будем пихать в лист
-            string_to_list = f"ID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0):.1f}% | RAM: {process.get('memory_percent', 0):.1f}%"
+            string_to_list = f"PID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0) / 10:.1f}% | RAM: {process.get('memory_percent', 0):.1f}%"
 
             self.info_list.addItem(string_to_list)
     
 
 
     def save_results(self):
-        # Получаем текущие данные через логику
+        # получаем процессы и текущую дату время
         processes = self.logic.get_process_list()
+        now = datetime.now().strftime("%Y-%m-%d Time: %H:%M:%S")
 
         # Диалог сохранения файла
         file_path, _ = QFileDialog.getSaveFileName(self, "Сохранить результаты", "", "Text Files (*.txt);;All Files (*)")
@@ -152,15 +154,16 @@ class MainWindow(QMainWindow):
         if file_path:
             try:
                 with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write(f"Report from Observer's Eye\n")
-                    f.write(f"Top 20 processes on CPU:\n\n")
+                    f.write(f"Report to {self.users[0].name} | Observer's Eye |\n")
+                    f.write("——————————————————————————————————\n\n")
+                    f.write(f"Top 20 CPU processes on {now}:\n\n")
 
-                    f.write("============================\n")
+                    f.write("============================================================\n")
 
                     for process in processes:
-                        f.write(f"ID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0):.1f}% | RAM: {process.get('memory_percent', 0):.1f}%\n")
+                        f.write(f"PID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0) / 10:.1f}% | RAM: {process.get('memory_percent', 0):.1f}%\n")
 
-                    f.write("============================")
+                    f.write("============================================================")
                     
                     QMessageBox.information(self, "Success", f"Results were saved in {file_path}")
             except Exception as e:

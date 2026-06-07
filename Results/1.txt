@@ -1,25 +1,27 @@
-Report from Observer's Eye
-Top 20 processes on CPU:
+Report to Owner | Observer's Eye |
+——————————————————————————————————
 
-============================
-ID: 0 | Name: System Idle Process | CPU: 1545.3% | RAM: 0.0%
-ID: 5428 | Name: browser.exe | CPU: 14.3% | RAM: 2.2%
-ID: 20180 | Name: python.exe | CPU: 7.5% | RAM: 0.2%
-ID: 4 | Name: System | CPU: 4.4% | RAM: 0.0%
-ID: 17980 | Name: Code.exe | CPU: 3.9% | RAM: 1.2%
-ID: 9072 | Name: browser.exe | CPU: 2.4% | RAM: 0.2%
-ID: 9696 | Name: browser.exe | CPU: 1.8% | RAM: 1.2%
-ID: 13892 | Name: Code.exe | CPU: 1.8% | RAM: 1.3%
-ID: 11128 | Name: Telegram.exe | CPU: 1.2% | RAM: 1.5%
-ID: 7508 | Name: Code.exe | CPU: 0.9% | RAM: 0.4%
-ID: 13772 | Name: steamwebhelper.exe | CPU: 0.9% | RAM: 0.8%
-ID: 856 | Name: csrss.exe | CPU: 0.6% | RAM: 0.0%
-ID: 1556 | Name: dwm.exe | CPU: 0.6% | RAM: 0.3%
-ID: 7656 | Name: browser.exe | CPU: 0.6% | RAM: 1.7%
-ID: 756 | Name: svchost.exe | CPU: 0.3% | RAM: 0.0%
-ID: 1336 | Name: svchost.exe | CPU: 0.3% | RAM: 0.0%
-ID: 2936 | Name: atieclxx.exe | CPU: 0.3% | RAM: 0.0%
-ID: 3336 | Name: Code.exe | CPU: 0.3% | RAM: 0.4%
-ID: 3356 | Name: svchost.exe | CPU: 0.3% | RAM: 0.1%
-ID: 4272 | Name: browser.exe | CPU: 0.3% | RAM: 0.3%
-============================
+Top 20 CPU processes on 2026-06-07 Time: 20:54:07:
+
+========================================================
+PID: 0 | Name: System Idle Process | CPU: 150.9% | RAM: 0.0%
+PID: 13260 | Name: python.exe | CPU: 1.6% | RAM: 0.2%
+PID: 15308 | Name: Discord.exe | CPU: 0.7% | RAM: 1.7%
+PID: 6864 | Name: browser.exe | CPU: 0.6% | RAM: 1.9%
+PID: 368 | Name: csrss.exe | CPU: 0.5% | RAM: 0.0%
+PID: 4 | Name: System | CPU: 0.3% | RAM: 0.0%
+PID: 12732 | Name: browser.exe | CPU: 0.2% | RAM: 1.2%
+PID: 17632 | Name: Code.exe | CPU: 0.2% | RAM: 0.5%
+PID: 1600 | Name: dwm.exe | CPU: 0.2% | RAM: 0.3%
+PID: 6560 | Name: explorer.exe | CPU: 0.2% | RAM: 0.6%
+PID: 7616 | Name: Taskmgr.exe | CPU: 0.1% | RAM: 0.2%
+PID: 12708 | Name: browser.exe | CPU: 0.1% | RAM: 0.2%
+PID: 16236 | Name: Code.exe | CPU: 0.1% | RAM: 0.5%
+PID: 17616 | Name: Code.exe | CPU: 0.1% | RAM: 1.3%
+PID: 288 | Name: audiodg.exe | CPU: 0.1% | RAM: 0.1%
+PID: 1248 | Name: svchost.exe | CPU: 0.1% | RAM: 0.1%
+PID: 3388 | Name: svchost.exe | CPU: 0.1% | RAM: 0.1%
+PID: 104 | Name:  | CPU: 0.0% | RAM: 0.3%
+PID: 128 | Name: wininit.exe | CPU: 0.0% | RAM: 0.0%
+PID: 180 | Name: Registry | CPU: 0.0% | RAM: 0.2%
+========================================================
