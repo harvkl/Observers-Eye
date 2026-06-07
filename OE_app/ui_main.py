@@ -28,6 +28,7 @@ from PyQt6.QtWidgets import (
 from logic import Logic
 from logic import Color
 from datetime import datetime
+import psutil
 
 
 # подкласс QMainWindow для настройки окна
@@ -63,7 +64,7 @@ class MainWindow(QMainWindow):
         # создаем таймер для апдейта таба с листом процессов
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
-        self.timer.start(2000) # апдейт каждые 2 секунды
+        self.timer.start(5000) # апдейт каждые 5 секунд
 
         self.update_perfomace_tab()
 
@@ -75,13 +76,20 @@ class MainWindow(QMainWindow):
 
         self.label = QLabel("PERFOMANCE MONITORING")
         self.info_list = QListWidget()
+        self.kill_button = QPushButton("Select and kill processes")
 
         layout.addWidget(self.label)
         layout.addWidget(self.info_list)
+        layout.addWidget(self.kill_button)
         #info_list.addItems(["1st", "2nd", "3rd"])
         
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         #self.info_list.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+
+        # коннектим функцию убийства процесса из списка на кнопку кил батон
+        self.kill_button.clicked.connect(self.kill_process)
+
 
         layout.addStretch()
 
@@ -108,7 +116,7 @@ class MainWindow(QMainWindow):
 
     def create_info_tab(self):
         widget = QWidget()
-        widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
+        widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px; border: none; padding: 15px 0px 0px 0px;")
         layout = QVBoxLayout(widget)
 
         self.info_label = QLabel("INFO ABOUT PROGRAMM")
@@ -149,7 +157,7 @@ class MainWindow(QMainWindow):
         now = datetime.now().strftime("%Y-%m-%d Time: %H:%M:%S")
 
         # Диалог сохранения файла
-        file_path, _ = QFileDialog.getSaveFileName(self, "Сохранить результаты", "", "Text Files (*.txt);;All Files (*)")
+        file_path, _ = QFileDialog.getSaveFileName(self, "Save results", "./Results/", "Text Files (*.txt);;All Files (*)")
 
         if file_path:
             try:
@@ -168,3 +176,22 @@ class MainWindow(QMainWindow):
                     QMessageBox.information(self, "Success", f"Results were saved in {file_path}")
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Couldn't save: {e}")
+
+    def kill_process(self, pid):
+        selected_item = self.info_list.selectedItems() # получаем выбранный итем который удалим
+
+        # пытаемся извлечь пид процесса
+        try:
+            item_text = selected_item[0].text()
+            pid = int(item_text.split(' | ')[0].split(': ')[1]) # извлекаем pid
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Pick the process: {e}")
+
+        # пытаемся термнуть процесс по его pid'у
+        try:
+            process_to_kill = psutil.Process(pid)
+            process_to_kill.terminate()
+            QMessageBox.information(self, "Success", f"Process with PID: {pid} was terminated")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Couldn't kill the process: {e}")
+
