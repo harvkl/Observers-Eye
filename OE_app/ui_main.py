@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.setWindowTitle("Observer's Eye")
-        self.setFixedSize(800, 600)
+        self.setFixedSize(850, 600)
 
         tabs = QTabWidget()
         tabs.setTabPosition(QTabWidget.TabPosition.North)
@@ -71,18 +71,31 @@ class MainWindow(QMainWindow):
     #-------------------------------------------------------------------------- создание виджетов внутри табов
     def create_perfomance_tab(self):
         widget = QWidget()
-        widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
+        #widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
         layout = QVBoxLayout(widget)
 
         self.label = QLabel("PERFOMANCE MONITORING")
         self.current_status_label = QLabel("CPU: ?? | RAM: ??")
+
+        self.cpu_bar = QProgressBar()
+        self.cpu_bar.setRange(0, 100)
+        self.cpu_bar.setTextVisible(True)
+
+        self.ram_bar = QProgressBar()
+        self.ram_bar.setRange(0, 100)
+        self.ram_bar.setTextVisible(True)
+
         self.info_list = QListWidget()
         self.kill_button = QPushButton("Select and kill processes")
+        self.note_label = QLabel("*Notice: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
 
         layout.addWidget(self.label)
         layout.addWidget(self.current_status_label)
+        layout.addWidget(self.cpu_bar)
+        layout.addWidget(self.ram_bar)
         layout.addWidget(self.info_list)
         layout.addWidget(self.kill_button)
+        layout.addWidget(self.note_label)
         #info_list.addItems(["1st", "2nd", "3rd"])
         
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -99,7 +112,7 @@ class MainWindow(QMainWindow):
 
     def create_results_tab(self):
         widget = QWidget()
-        widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
+        #widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
         layout = QVBoxLayout(widget)
 
         self.res_label = QLabel("RESULTS")
@@ -118,7 +131,7 @@ class MainWindow(QMainWindow):
 
     def create_info_tab(self):
         widget = QWidget()
-        widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px; border: none; padding: 15px 0px 0px 0px;")
+        #widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px; border: none; padding: 15px 0px 0px 0px;")
         layout = QVBoxLayout(widget)
 
         self.info_label = QLabel("INFO ABOUT PROGRAMM")
@@ -143,8 +156,15 @@ class MainWindow(QMainWindow):
     def update_perfomace_tab(self):
 
         self.info_list.clear()
-        #self.current_status_label.clear()
-        self.current_status_label.setText(f"CPU: {psutil.cpu_percent()}% | RAM: {psutil.virtual_memory().percent}%")
+        self.current_status_label.clear()
+
+        curr_cpu_usage = psutil.cpu_percent()
+        curr_ram_usage = psutil.virtual_memory().percent
+
+        self.current_status_label.setText(f"CPU: {curr_cpu_usage}% | RAM: {curr_ram_usage}%")
+        self.cpu_bar.setValue(int(curr_cpu_usage))
+        self.ram_bar.setValue(int(curr_ram_usage))
+
         processes = self.logic.get_process_list()
 
         for process in processes:
