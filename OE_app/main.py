@@ -19,16 +19,6 @@ def main():
     tray.setToolTip("Observer's Eye | Monitoring")
     tray.show()
 
-    
-
-    # подгрузка стиля
-    with open("./styles/styles.qss", "r", encoding="utf-8") as f:
-        app.setStyleSheet(f.read())
-
-    # создание окна
-    window = MainWindow()
-    window.show()
-
     # создаем подменю для трея
     tray_menu = QMenu()
 
@@ -43,8 +33,15 @@ def main():
     tray_menu.addAction(exit_tray_menu)
     tray.setContextMenu(tray_menu)
 
-    sys.exit(app.exec())
+    # подгрузка стиля
+    with open("./styles/styles.qss", "r", encoding="utf-8") as f:
+        app.setStyleSheet(f.read())
 
+    # создание окна
+    window = MainWindow()
+    window.show()
+
+    sys.exit(app.exec())
 
 if __name__ == "__main__":
     main()

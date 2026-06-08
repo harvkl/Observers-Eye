@@ -61,7 +61,8 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(widget)
 
         self.label = QLabel("PERFOMANCE MONITORING")
-        self.current_status_label = QLabel("CPU: ?? | RAM: ??")
+        self.current_cpu_status_label = QLabel("CPU: ??")
+        self.current_ram_status_label = QLabel("RAM: ??")
 
         self.cpu_bar = QProgressBar()
         self.cpu_bar.setRange(0, 100)
@@ -72,14 +73,23 @@ class MainWindow(QMainWindow):
         self.ram_bar.setTextVisible(True)
 
         self.info_list = QListWidget()
-        self.kill_button = QPushButton("Select and kill processes")
+        self.table_info_list = QTableWidget()
+
+        self.table_info_list.setColumnCount(4)
+        self.table_info_list.setRowCount(230)
+        labels = ["PID", "Name", "CPU", "RAM"]
+        self.table_info_list.setHorizontalHeaderLabels(labels)
+
+        self.kill_button = QPushButton("Select and kill process")
         self.note_label = QLabel("*Note: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
 
         layout.addWidget(self.label)
-        layout.addWidget(self.current_status_label)
+        layout.addWidget(self.current_cpu_status_label)
         layout.addWidget(self.cpu_bar)
+        layout.addWidget(self.current_ram_status_label)
         layout.addWidget(self.ram_bar)
         layout.addWidget(self.info_list)
+        layout.addWidget(self.table_info_list)
         layout.addWidget(self.kill_button)
         layout.addWidget(self.note_label)
         #info_list.addItems(["1st", "2nd", "3rd"])
@@ -141,7 +151,8 @@ class MainWindow(QMainWindow):
     def update_perfomace_tab(self):
 
         self.info_list.clear()
-        self.current_status_label.clear()
+        self.current_cpu_status_label.clear()
+        self.current_ram_status_label.clear()
 
         curr_cpu_usage = psutil.cpu_percent()
         curr_ram_usage = psutil.virtual_memory().percent
@@ -152,17 +163,33 @@ class MainWindow(QMainWindow):
         if curr_ram_usage > 80:
             QMessageBox.warning(self, "Warning", f"RAM usage is above normal: {curr_ram_usage}, take actions!")
 
-        self.current_status_label.setText(f"CPU: {curr_cpu_usage}% | RAM: {curr_ram_usage}%")
+        self.current_cpu_status_label.setText(f"CPU: {curr_cpu_usage}%")
+        self.current_ram_status_label.setText(f"RAM: {curr_ram_usage}%")
         self.cpu_bar.setValue(int(curr_cpu_usage))
         self.ram_bar.setValue(int(curr_ram_usage))
 
         processes = self.logic.get_process_list()
 
+        i = int(0) # делаем итератор для строки в таблице
         for process in processes:
+
+            # получаем все че нам нужно из процесса
+            table_pid = f"{process['pid']}"
+            table_name = f"{process['name']}"
+            table_cpu = f"{process.get('cpu_percent', 0) / 10:.1f}"
+            table_ram = f"{process.get('memory_percent', 0):.1f}"
+
             # делаем строчку которую будем пихать в лист
-            string_to_list = f"PID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0) / 10:.1f}% | RAM: {process.get('memory_percent', 0):.1f}%"
+            string_to_list = f"PID: {table_pid} | Name: {table_name} | CPU: {table_cpu}% | RAM: {table_ram}%"
 
             self.info_list.addItem(string_to_list)
+
+            self.table_info_list.setItem(i, 0, QTableWidgetItem(table_pid))
+            self.table_info_list.setItem(i, 1, QTableWidgetItem(table_name))
+            self.table_info_list.setItem(i, 2, QTableWidgetItem(f"{table_cpu}%"))
+            self.table_info_list.setItem(i, 3, QTableWidgetItem(f"{table_ram}%"))
+
+            i += 1
     
 
 
@@ -210,4 +237,3 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "Success", f"Process with PID: {pid} was terminated")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Couldn't kill the process: {e}")
-
