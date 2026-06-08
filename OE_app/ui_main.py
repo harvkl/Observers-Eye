@@ -55,16 +55,16 @@ class MainWindow(QMainWindow):
         tabs.addTab(results_tab_widget, "Results")
         tabs.addTab(info_tab_widget, "Info")
 
-        tabs.setTabIcon(0, QIcon("anchor.png"))
-        tabs.setTabIcon(1, QIcon("report.png"))
-        tabs.setTabIcon(2, QIcon("information.png"))
+        tabs.setTabIcon(0, QIcon("./media/anchor.png"))
+        tabs.setTabIcon(1, QIcon("./media/report.png"))
+        tabs.setTabIcon(2, QIcon("./media/information.png"))
 
         self.setCentralWidget(tabs) # устанавливаем разметку для окна
 
         # создаем таймер для апдейта таба с листом процессов
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
-        self.timer.start(5000) # апдейт каждые 5 секунд
+        self.timer.start(4000) # апдейт каждые 4 секунды
 
         self.update_perfomace_tab()
 
@@ -75,10 +75,12 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(widget)
 
         self.label = QLabel("PERFOMANCE MONITORING")
+        self.current_status_label = QLabel("CPU: ?? | RAM: ??")
         self.info_list = QListWidget()
         self.kill_button = QPushButton("Select and kill processes")
 
         layout.addWidget(self.label)
+        layout.addWidget(self.current_status_label)
         layout.addWidget(self.info_list)
         layout.addWidget(self.kill_button)
         #info_list.addItems(["1st", "2nd", "3rd"])
@@ -141,6 +143,8 @@ class MainWindow(QMainWindow):
     def update_perfomace_tab(self):
 
         self.info_list.clear()
+        #self.current_status_label.clear()
+        self.current_status_label.setText(f"CPU: {psutil.cpu_percent()}% | RAM: {psutil.virtual_memory().percent}%")
         processes = self.logic.get_process_list()
 
         for process in processes:
@@ -164,7 +168,8 @@ class MainWindow(QMainWindow):
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(f"Report to {self.users[0].name} | Observer's Eye |\n")
                     f.write("——————————————————————————————————\n\n")
-                    f.write(f"Top 20 CPU processes on {now}:\n\n")
+                    f.write(f"CPU: {psutil.cpu_percent()}% | RAM: {psutil.virtual_memory().percent}% on {now}\n\n")
+                    f.write(f"Processes in descending order by CPU on {now}\n\n")
 
                     f.write("============================================================\n")
 

@@ -25,7 +25,9 @@ class Logic:
                 continue
         
         processes.sort(key=lambda x: x.get('cpu_percent', 0), reverse=True) #сортировка по убыванию
-        return processes[:20] # возвращаем 20 процессов
+
+        #return processes[:40] # возвращаем 40 процессов
+        return processes
     
     @staticmethod
     def get_users():
