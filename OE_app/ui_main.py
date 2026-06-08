@@ -10,21 +10,7 @@ import sys # доступ к аргументам cmd
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
-'''from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import (
-    QApplication, 
-    QWidget, 
-    QLabel, 
-    QMainWindow, 
-    QPushButton, 
-    QComboBox, 
-    QListWidget, 
-    QGridLayout, 
-    QVBoxLayout, 
-    QHBoxLayout, 
-    QStackedLayout,
-    QTabWidget)'''
+
 from logic import Logic
 from logic import Color
 from datetime import datetime
@@ -87,7 +73,7 @@ class MainWindow(QMainWindow):
 
         self.info_list = QListWidget()
         self.kill_button = QPushButton("Select and kill processes")
-        self.note_label = QLabel("*Notice: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
+        self.note_label = QLabel("*Note: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
 
         layout.addWidget(self.label)
         layout.addWidget(self.current_status_label)
@@ -105,8 +91,7 @@ class MainWindow(QMainWindow):
         # коннектим функцию убийства процесса из списка на кнопку кил батон
         self.kill_button.clicked.connect(self.kill_process)
 
-
-        layout.addStretch()
+        layout.addStretch() # эт строка поглощает спейс при изменении размера окна, но тк в 26 строке у нас задан фиксед размер то эта строка юзлес, но оставим ее в случае если уберем 26 строку
 
         return widget
 
@@ -160,6 +145,12 @@ class MainWindow(QMainWindow):
 
         curr_cpu_usage = psutil.cpu_percent()
         curr_ram_usage = psutil.virtual_memory().percent
+
+        # добавили всплывающие предупреждалки при высокой загруженности CPU и RAM
+        if curr_cpu_usage > 90:
+            QMessageBox.warning(self, "Warning", f"CPU usage is above normal: {curr_cpu_usage}, take actions!")
+        if curr_ram_usage > 80:
+            QMessageBox.warning(self, "Warning", f"RAM usage is above normal: {curr_ram_usage}, take actions!")
 
         self.current_status_label.setText(f"CPU: {curr_cpu_usage}% | RAM: {curr_ram_usage}%")
         self.cpu_bar.setValue(int(curr_cpu_usage))

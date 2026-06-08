@@ -19,12 +19,7 @@ def main():
     tray.setToolTip("Observer's Eye | Monitoring")
     tray.show()
 
-    # создаем подменю для трея
-    tray_menu = QMenu()
-    exit_tray_menu = QAction("Quit Observer's Eye")
-    exit_tray_menu.triggered.connect(app.quit)
-    tray_menu.addAction(exit_tray_menu)
-    tray.setContextMenu(tray_menu)
+    
 
     # подгрузка стиля
     with open("./styles/styles.qss", "r", encoding="utf-8") as f:
@@ -33,6 +28,20 @@ def main():
     # создание окна
     window = MainWindow()
     window.show()
+
+    # создаем подменю для трея
+    tray_menu = QMenu()
+
+    sound_tray_menu = QAction("Make a sound")
+    exit_tray_menu = QAction("Quit app")
+
+    sound_tray_menu.triggered.connect(app.beep)
+    exit_tray_menu.triggered.connect(app.quit)
+
+    tray_menu.addAction(QIcon("./media/eye.png"), "Observer's Eye").setDisabled(True)
+    tray_menu.addAction(sound_tray_menu)
+    tray_menu.addAction(exit_tray_menu)
+    tray.setContextMenu(tray_menu)
 
     sys.exit(app.exec())
 
