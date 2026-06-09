@@ -79,6 +79,11 @@ class MainWindow(QMainWindow):
         self.table_info_list.setRowCount(230)
         labels = ["PID", "Name", "CPU", "RAM"]
         self.table_info_list.setHorizontalHeaderLabels(labels)
+        self.table_info_list.setColumnWidth(0, 100)
+        self.table_info_list.setColumnWidth(1, 300)
+        self.table_info_list.setColumnWidth(2, 185)
+        self.table_info_list.setColumnWidth(3, 185)
+        #self.table_info_list.
 
         self.kill_button = QPushButton("Select and kill process")
         self.note_label = QLabel("*Note: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
@@ -222,6 +227,7 @@ class MainWindow(QMainWindow):
 
     def kill_process(self, pid):
         selected_item = self.info_list.selectedItems() # получаем выбранный итем который удалим
+        selected_table_item = self.table_info_list.selectedItems()
 
         # пытаемся извлечь пид процесса
         try:

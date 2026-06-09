@@ -1,7 +1,7 @@
 QTextEdit {
-    font-size: 18px;
+    font-size: 12px;
     border: none;
 }
 QLabel {
-    font-size: 18px;
+    font-size: 12px;
 }
