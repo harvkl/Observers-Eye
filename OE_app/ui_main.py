@@ -80,10 +80,12 @@ class MainWindow(QMainWindow):
         labels = ["PID", "Name", "CPU", "RAM"]
         self.table_info_list.setHorizontalHeaderLabels(labels)
         self.table_info_list.setColumnWidth(0, 100)
-        self.table_info_list.setColumnWidth(1, 300)
-        self.table_info_list.setColumnWidth(2, 185)
-        self.table_info_list.setColumnWidth(3, 185)
-        #self.table_info_list.
+        self.table_info_list.setColumnWidth(1, 315)
+        self.table_info_list.setColumnWidth(2, 195)
+        self.table_info_list.setColumnWidth(3, 195)
+        self.table_info_list.verticalHeader().setVisible(False) # убираем видимость номера кортежа
+        self.table_info_list.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers) # запрещаем че либо делать со строками
+        self.table_info_list.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows) # делаем так что если тыкаем куда либо то выбиралась вся строка
 
         self.kill_button = QPushButton("Select and kill process")
         self.note_label = QLabel("*Note: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
@@ -137,6 +139,15 @@ class MainWindow(QMainWindow):
         self.info_label = QLabel("INFO ABOUT PROGRAMM")
         self.text_block = QTextEdit()
 
+        self.text_block.setFixedSize(830, 80)
+
+        self.cpu_stats_since_load = QLabel("")
+        self.cpu_usage_avg = QLabel("")
+        self.cpu_freq = QLabel("")
+        self.boot_time_label = QLabel("")
+
+        self.get_info_tab_button = QPushButton("Get stats!")
+
         self.users = self.logic.get_users()
 
         self.text_block.setText(f"Hello, {self.users[0].name}. It's a simple tool that shows us the information about current processes and cpu status. This programm made by a begginer, so don't be hard on me.")
@@ -144,9 +155,19 @@ class MainWindow(QMainWindow):
 
         layout.addWidget(self.info_label)
         layout.addWidget(self.text_block)
+    
+        layout.addWidget(self.cpu_stats_since_load)
+        layout.addWidget(self.cpu_usage_avg)
+        layout.addWidget(self.cpu_freq)
+        layout.addWidget(self.boot_time_label)
+
+        layout.addWidget(self.get_info_tab_button)
 
         self.info_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.text_block.setAlignment(Qt.AlignmentFlag.AlignBottom)
+        self.text_block.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+
+        # подключаем кнопочку получения инфы к методу получения инфы
+        self.get_info_tab_button.clicked.connect(self.get_stats_for_info_tab)
 
         layout.addStretch()
 
@@ -197,7 +218,6 @@ class MainWindow(QMainWindow):
             i += 1
     
 
-
     def save_results(self):
         # получаем процессы и текущую дату время
         processes = self.logic.get_process_list()
@@ -214,16 +234,25 @@ class MainWindow(QMainWindow):
                     f.write(f"CPU: {psutil.cpu_percent()}% | RAM: {psutil.virtual_memory().percent}% on {now}\n\n")
                     f.write(f"Processes in descending order by CPU on {now}\n\n")
 
-                    f.write("============================================================\n")
+                    f.write("========================================================================================================\n")
 
                     for process in processes:
                         f.write(f"PID: {process['pid']} | Name: {process['name']} | CPU: {process.get('cpu_percent', 0) / 10:.1f}% | RAM: {process.get('memory_percent', 0):.1f}%\n")
 
-                    f.write("============================================================")
+                    f.write("========================================================================================================\n\n")
+
+                    if self.cpu_stats_since_load.text() != "":
+                        f.write("\n========================================================================================================")
+                        f.write(f"\nCPU stats:\n    Context switches: {self.ctx_switches}\n    Interrupts: {self.interrupts}\n    Soft interrupts: {self.soft_interrupts}\n    System calls: {self.sys_calls}")
+                        f.write(f"\n\nSystem AVG load for 1, 5, 15 minutes: {self.l1:.2f}, {self.l5:.2f}, {self.l15:.2f}\n  Current utilization: {self.curr_util:.1f}%")
+                        f.write(f"\n\nCurrent CPU frequency: {self.curr_cpu_freq} MHz\n    Minimum CPU frequency: {self.min_cpu_freq} MHz\n    Maximum CPU frequency: {self.max_cpu_freq} MHz")
+                        f.write(f"\n\nSystem is running since: {self.readable_time}")
+                        f.write("\n========================================================================================================")
                     
                     QMessageBox.information(self, "Success", f"Results were saved in {file_path}")
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Couldn't save: {e}")
+
 
     def kill_process(self, pid):
         selected_item = self.info_list.selectedItems() # получаем выбранный итем который удалим
@@ -243,3 +272,28 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "Success", f"Process with PID: {pid} was terminated")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Couldn't kill the process: {e}")
+
+    
+    def get_stats_for_info_tab(self):
+        
+        self.boot_time_timestamp = psutil.boot_time() # получаем время загрузки в виде timestamp
+        self.boot_time_datetime = datetime.fromtimestamp(self.boot_time_timestamp) # преобразуем timestamp в объект datetime (используется локальное время)
+        self.readable_time = self.boot_time_datetime.strftime("%Y-%m-%d %H:%M:%S") # форматируем в читаемую строку
+
+        self.l1, self.l5, self.l15 = psutil.getloadavg()
+        self.cpu_count = psutil.cpu_count(logical=True)
+        self.curr_util = ((self.l1 / self.cpu_count) * 100)
+
+        self.ctx_switches = psutil.cpu_stats().ctx_switches
+        self.interrupts = psutil.cpu_stats().interrupts
+        self.soft_interrupts = psutil.cpu_stats().soft_interrupts
+        self.sys_calls = psutil.cpu_stats().syscalls
+
+        self.curr_cpu_freq = round(psutil.cpu_freq().current, 2)
+        self.min_cpu_freq = round(psutil.cpu_freq().min, 2)
+        self.max_cpu_freq = round(psutil.cpu_freq().max, 2)
+
+        self.cpu_stats_since_load.setText(f"CPU stats:\n    Context switches: {self.ctx_switches}\n    Interrupts: {self.interrupts}\n    Soft interrupts: {self.soft_interrupts}\n    System calls: {self.sys_calls}")
+        self.cpu_usage_avg.setText(f"System AVG load for 1, 5, 15 minutes: {self.l1:.2f}, {self.l5:.2f}, {self.l15:.2f}\n  Current utilization: {self.curr_util:.1f}%")
+        self.cpu_freq.setText(f"Current CPU frequency: {self.curr_cpu_freq} MHz\n    Minimum CPU frequency: {self.min_cpu_freq} MHz\n    Maximum CPU frequency: {self.max_cpu_freq} MHz")
+        self.boot_time_label.setText(f"System is running since: {self.readable_time}")

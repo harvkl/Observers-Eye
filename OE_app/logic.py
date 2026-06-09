@@ -37,6 +37,7 @@ class Logic:
 
         return users
     
+    
 class Color(QWidget):
 
     def __init__(self, color):
