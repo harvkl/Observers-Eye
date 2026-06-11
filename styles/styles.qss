@@ -2,6 +2,7 @@ QTextEdit {
     font-size: 12px;
     border: none;
 }
+
 QLabel {
     font-size: 12px;
 }

@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         self.setWindowTitle("Observer's Eye")
-        self.setFixedSize(850, 600)
+        self.setFixedSize(850, 700)
 
         tabs = QTabWidget()
         tabs.setTabPosition(QTabWidget.TabPosition.North)
@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
         # создаем таймер для апдейта таба с листом процессов
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
-        self.timer.start(4000) # апдейт каждые 4 секунды
+        self.timer.start(5000) # апдейт каждые 5 секунды
 
         self.update_perfomace_tab()
 
@@ -74,6 +74,9 @@ class MainWindow(QMainWindow):
 
         self.info_list = QListWidget()
         self.table_info_list = QTableWidget()
+        self.info_list.setDisabled(True) # ставим лист по дефолту выключенным
+        self.info_list.setVisible(False) # ставим лист по дефолту невидимым
+        self.info_list_disabled = True
 
         self.table_info_list.setColumnCount(4)
         self.table_info_list.setRowCount(230)
@@ -86,9 +89,11 @@ class MainWindow(QMainWindow):
         self.table_info_list.verticalHeader().setVisible(False) # убираем видимость номера кортежа
         self.table_info_list.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers) # запрещаем че либо делать со строками
         self.table_info_list.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows) # делаем так что если тыкаем куда либо то выбиралась вся строка
+        self.table_info_list.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection) # делаем так чтобы можно было выбрать только один процесс за раз
 
         self.kill_button = QPushButton("Select and kill process")
         self.note_label = QLabel("*Note: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
+        self.switch_list_table_button = QPushButton("Switch display process mode")
 
         layout.addWidget(self.label)
         layout.addWidget(self.current_cpu_status_label)
@@ -99,14 +104,18 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.table_info_list)
         layout.addWidget(self.kill_button)
         layout.addWidget(self.note_label)
+        layout.addWidget(self.switch_list_table_button)
         #info_list.addItems(["1st", "2nd", "3rd"])
         
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.current_cpu_status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.current_ram_status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         #self.info_list.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
 
         # коннектим функцию убийства процесса из списка на кнопку кил батон
         self.kill_button.clicked.connect(self.kill_process)
+        self.switch_list_table_button.clicked.connect(self.switch_list_table)
 
         layout.addStretch() # эт строка поглощает спейс при изменении размера окна, но тк в 26 строке у нас задан фиксед размер то эта строка юзлес, но оставим ее в случае если уберем 26 строку
 
@@ -255,15 +264,24 @@ class MainWindow(QMainWindow):
 
 
     def kill_process(self, pid):
-        selected_item = self.info_list.selectedItems() # получаем выбранный итем который удалим
-        selected_table_item = self.table_info_list.selectedItems()
+        selected_item = self.info_list.selectedItems() # получаем выбранный итем из списка который удалим
 
-        # пытаемся извлечь пид процесса
-        try:
-            item_text = selected_item[0].text()
-            pid = int(item_text.split(' | ')[0].split(': ')[1]) # извлекаем pid
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Pick the process: {e}")
+        if self.info_list_disabled: # если у нас таблица
+            # пытаемся извлечь пид процесса
+            try:
+                selected_table_item = self.table_info_list.selectedItems() # получаем выбранный из таблицы итем который удалим
+                table_item_text = selected_table_item[0].text()
+                pid = int(table_item_text) # извлекаем pid для таблицы
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Pick the process: {e}")
+        elif not self.info_list_disabled: # если у нас лист
+            # пытаемся извлечь пид процесса
+            try:
+                selected_item = self.info_list.selectedItems() # получаем выбранный итем из списка который удалим
+                item_text = selected_item[0].text()
+                pid = int(item_text.split(' | ')[0].split(': ')[1]) # извлекаем pid для списка
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Pick the process: {e}")
 
         # пытаемся термнуть процесс по его pid'у
         try:
@@ -297,3 +315,18 @@ class MainWindow(QMainWindow):
         self.cpu_usage_avg.setText(f"System AVG load for 1, 5, 15 minutes: {self.l1:.2f}, {self.l5:.2f}, {self.l15:.2f}\n  Current utilization: {self.curr_util:.1f}%")
         self.cpu_freq.setText(f"Current CPU frequency: {self.curr_cpu_freq} MHz\n    Minimum CPU frequency: {self.min_cpu_freq} MHz\n    Maximum CPU frequency: {self.max_cpu_freq} MHz")
         self.boot_time_label.setText(f"System is running since: {self.readable_time}")
+
+
+    def switch_list_table(self):
+        if self.info_list_disabled: # если лист выключен то включаем
+            self.table_info_list.setDisabled(True)
+            self.table_info_list.setVisible(False)
+            self.info_list.setDisabled(False)
+            self.info_list.setVisible(True)
+            self.info_list_disabled = False
+        elif not self.info_list_disabled: # если лист включен то выключаем
+            self.table_info_list.setDisabled(False)
+            self.table_info_list.setVisible(True)
+            self.info_list.setDisabled(True)
+            self.info_list.setVisible(False)
+            self.info_list_disabled = True
