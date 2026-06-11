@@ -1,3 +1,7 @@
+QWidget {
+    background-color: #414141;
+}
+
 QTextEdit {
     font-size: 12px;
     border: none;
@@ -5,4 +9,171 @@ QTextEdit {
 
 QLabel {
     font-size: 12px;
+}
+
+QTabWidget::pane {
+    border: 1px solid lightgray;
+    top: -1px;
+    background: rgb(245, 245, 245);
+}
+
+QPushButton {
+    border: 5px solid #ffd95c;
+    border-radius: 5px;
+    color: #000000;
+    background-color: #ffd95c;
+    width: 350px;
+    max-width: 550px;
+    height: 25px;
+    font-family: 'Arial';
+    font-size: 15px;
+    text-align: center;
+}
+
+QPushButton::hover {
+    border-color: #ffc400;
+    background-color: #ffcc23;
+    border-radius: 7px;
+}
+
+QTableWidget {
+    border: 2px solid #ffc400;
+    border-radius: 5px;
+    background-color: #414141;
+    color: #ffcc23;
+}
+
+/* Вся вертикальная полоса прокрутки */
+QTableWidget QScrollBar:vertical {
+    border: none;
+    background: #b8b8b8;
+    width: 12px;
+    margin: 0px;
+}
+
+/* Ползунок вертикальной полосы */
+QTableWidget QScrollBar::handle:vertical {
+    background: #888888;
+    min-height: 30px;
+    border-radius: 2px;
+}
+
+/* Ползунок при наведении */
+QTableWidget QScrollBar::handle:vertical:hover {
+    background: #666666;
+}
+
+/* Ползунок при нажатии */     
+QTableWidget QScrollBar::handle:vertical:pressed {
+    background: #444444;
+}
+
+/* Кнопка вверх */
+QTableWidget QScrollBar::sub-line:vertical {
+    border: none;
+    background: none;
+    height: 0px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+/* Кнопка вниз */
+QTableWidget QScrollBar::add-line:vertical {
+    border: none;
+    background: none;
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+/* Область выше ползунка */
+QTableWidget QScrollBar::add-page:vertical, 
+QTableWidget QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QListWidget {
+    border: 2px solid #ffc400;
+    border-radius: 5px;
+    background-color: #414141;
+    color: #ffcc23;
+    font-family: 'Arial';
+    font-size: 15px;
+}
+
+QMenu {
+    border: 2px solid #ffc400;
+    border-radius: 5px;
+    background-color: #414141;
+    color: #ffcc23;
+}
+
+QLabel {
+    font-family: 'Calibri' solid;
+    font-weight: 600;
+    color: #ff9823;
+}
+
+QTextEdit {
+    font-family: 'Calibri' solid;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffcc23;
+}
+
+
+/* Вся область вкладок */
+QTabWidget::pane {
+    border: none;
+    border-radius: 5px;
+    background: #ffd95c;
+    top: -2px;  /* Чтобы верхняя граница перекрывалась вкладками */
+}
+            
+/* ===== TAB BAR (полоса с заголовками вкладок) ===== */
+            
+QTabBar::tab {
+    background: white;
+    color: #333333;
+    padding: 10px 20px;
+    margin-right: 2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    min-width: 70px;
+}
+            
+/* Выбранная вкладка */
+QTabBar::tab:selected {
+    background: #ffcc23;
+    color: #000000;
+    font-weight: bold;
+    border: 2px solid #ffc400;
+    border-bottom: none;
+    min-width: 200px;
+}
+            
+/* Вкладка при наведении */
+QTabBar::tab:hover:!selected {
+    background: #ffe694;
+}
+            
+/* Неактивная вкладка */
+QTabBar::tab:!selected {
+    margin-top: 2px;
+}
+
+QProgressBar {
+    border: 2px solid #cccccc;
+    border-radius: 2px;
+    background-color: #f5f5f5;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    height: 10px;
+}
+    
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #fdab13, stop:1 #e27800);
+    border-radius: 2px;
 }

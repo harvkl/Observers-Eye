@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         results_tab_widget = self.create_results_tab()
         info_tab_widget = self.create_info_tab()
 
-        tabs.addTab(perfomance_tab_widget, "Perfomance")
+        tabs.addTab(perfomance_tab_widget, "Performance")
         tabs.addTab(results_tab_widget, "Results")
         tabs.addTab(info_tab_widget, "Info")
 
@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
         # создаем таймер для апдейта таба с листом процессов
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
-        self.timer.start(5000) # апдейт каждые 5 секунды
+        self.timer.start(3000) # апдейт каждые 3 секунды
 
         self.update_perfomace_tab()
 
@@ -60,58 +60,56 @@ class MainWindow(QMainWindow):
         #widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
         layout = QVBoxLayout(widget)
 
-        self.label = QLabel("PERFOMANCE MONITORING")
+        self.label = QLabel("PERFORMANCE MONITORING")
         self.current_cpu_status_label = QLabel("CPU: ??")
         self.current_ram_status_label = QLabel("RAM: ??")
 
         self.cpu_bar = QProgressBar()
         self.cpu_bar.setRange(0, 100)
-        self.cpu_bar.setTextVisible(True)
+        self.cpu_bar.setTextVisible(False)
 
         self.ram_bar = QProgressBar()
         self.ram_bar.setRange(0, 100)
-        self.ram_bar.setTextVisible(True)
+        self.ram_bar.setTextVisible(False)
 
         self.info_list = QListWidget()
         self.table_info_list = QTableWidget()
+
+        self.info_list.setFixedHeight(425)
         self.info_list.setDisabled(True) # ставим лист по дефолту выключенным
         self.info_list.setVisible(False) # ставим лист по дефолту невидимым
-        self.info_list_disabled = True
+        self.info_list_disabled = True # делаем переменную чтобы понимать когда и что, тк нету функции получения состояния
 
+        self.table_info_list.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed) # запрещаем изменять ширину колонок
+        self.table_info_list.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff) # убираем навсегда горизонтальный скролл для таблички
+        self.table_info_list.setFixedHeight(425)
         self.table_info_list.setColumnCount(4)
         self.table_info_list.setRowCount(230)
         labels = ["PID", "Name", "CPU", "RAM"]
         self.table_info_list.setHorizontalHeaderLabels(labels)
         self.table_info_list.setColumnWidth(0, 100)
         self.table_info_list.setColumnWidth(1, 315)
-        self.table_info_list.setColumnWidth(2, 195)
-        self.table_info_list.setColumnWidth(3, 195)
+        self.table_info_list.setColumnWidth(2, 200)
+        self.table_info_list.setColumnWidth(3, 198)
         self.table_info_list.verticalHeader().setVisible(False) # убираем видимость номера кортежа
         self.table_info_list.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers) # запрещаем че либо делать со строками
         self.table_info_list.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows) # делаем так что если тыкаем куда либо то выбиралась вся строка
         self.table_info_list.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection) # делаем так чтобы можно было выбрать только один процесс за раз
 
-        self.kill_button = QPushButton("Select and kill process")
-        self.note_label = QLabel("*Note: a percentage of usage, that shows for System Idle Process, shows not the CPU usage, but the percent of available resources for other processes.")
-        self.switch_list_table_button = QPushButton("Switch display process mode")
+        self.kill_button = QPushButton("Select and kill the process")
+        self.note_label = QLabel("*Note: the percentage of usage that shows for the System Idle Process shows not the CPU usage, but the percent of available resources for other processes.")
+        self.switch_list_table_button = QPushButton("Switch process display mode")
 
-        layout.addWidget(self.label)
-        layout.addWidget(self.current_cpu_status_label)
+        layout.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.current_cpu_status_label, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.cpu_bar)
-        layout.addWidget(self.current_ram_status_label)
+        layout.addWidget(self.current_ram_status_label, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.ram_bar)
         layout.addWidget(self.info_list)
         layout.addWidget(self.table_info_list)
-        layout.addWidget(self.kill_button)
-        layout.addWidget(self.note_label)
-        layout.addWidget(self.switch_list_table_button)
-        #info_list.addItems(["1st", "2nd", "3rd"])
-        
-        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.current_cpu_status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.current_ram_status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        #self.info_list.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
+        layout.addWidget(self.kill_button, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.note_label, alignment=Qt.AlignmentFlag.AlignLeft)
+        layout.addWidget(self.switch_list_table_button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         # коннектим функцию убийства процесса из списка на кнопку кил батон
         self.kill_button.clicked.connect(self.kill_process)
@@ -127,13 +125,10 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(widget)
 
         self.res_label = QLabel("RESULTS")
-        self.save_button = QPushButton("Save results in .txt file?")
+        self.save_button = QPushButton("Save the results in .txt file?")
 
-        layout.addWidget(self.res_label)
-        layout.addWidget(self.save_button)
-
-        self.res_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        #self.save_button.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.res_label, alignment=Qt.AlignmentFlag.AlignHCenter)
+        layout.addWidget(self.save_button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         # подключаем кнопочку сохранения к методу который сохраняет резы
         self.save_button.clicked.connect(self.save_results)
@@ -145,7 +140,7 @@ class MainWindow(QMainWindow):
         #widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px; border: none; padding: 15px 0px 0px 0px;")
         layout = QVBoxLayout(widget)
 
-        self.info_label = QLabel("INFO ABOUT PROGRAMM")
+        self.info_label = QLabel("INFO ABOUT THE PROGRAMM")
         self.text_block = QTextEdit()
 
         self.text_block.setFixedSize(830, 80)
@@ -159,26 +154,21 @@ class MainWindow(QMainWindow):
 
         self.users = self.logic.get_users()
 
-        self.text_block.setText(f"Hello, {self.users[0].name}. It's a simple tool that shows us the information about current processes and cpu status. This programm made by a begginer, so don't be hard on me.")
+        self.text_block.setText(f"Hello, {self.users[0].name}. This is a simple tool that shows us information about the current processes and CPU status. This program was created by an enthusiast, so don't be hard on me.")
         self.text_block.setReadOnly(True)
 
-        layout.addWidget(self.info_label)
-        layout.addWidget(self.text_block)
-    
+        layout.addWidget(self.info_label, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.text_block, alignment=Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(self.cpu_stats_since_load)
         layout.addWidget(self.cpu_usage_avg)
         layout.addWidget(self.cpu_freq)
         layout.addWidget(self.boot_time_label)
-
-        layout.addWidget(self.get_info_tab_button)
-
-        self.info_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.text_block.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+        layout.addWidget(self.get_info_tab_button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         # подключаем кнопочку получения инфы к методу получения инфы
         self.get_info_tab_button.clicked.connect(self.get_stats_for_info_tab)
 
-        layout.addStretch()
+        layout.addStretch() # эт строка поглощает спейс при изменении размера окна, но тк в 26 строке у нас задан фиксед размер то эта строка юзлес, но оставим ее в случае если уберем 26 строку
 
         return widget
     #--------------------------------------------------------------------------
@@ -258,7 +248,7 @@ class MainWindow(QMainWindow):
                         f.write(f"\n\nSystem is running since: {self.readable_time}")
                         f.write("\n========================================================================================================")
                     
-                    QMessageBox.information(self, "Success", f"Results were saved in {file_path}")
+                    QMessageBox.information(self, "Success", f"The results were saved in {file_path}")
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Couldn't save: {e}")
 
