@@ -6,16 +6,16 @@ A lightweight, cross-platform system monitoring application built with Python an
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+- [Features](#-features)
+- [Prerequisites](#️-prerequisites)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Project Structure](#-project-structure)
+- [Dependencies](#-dependencies)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Acknowledgments](#-acknowledgments)
+- [Support](#-support)
 
 ## ✨ Features
 
@@ -29,14 +29,6 @@ A lightweight, cross-platform system monitoring application built with Python an
 - **System Tray Integration**: Minimize to system tray with quick access menu
 - **Custom Styling**: Modern dark theme with orange accents using Qt Style Sheets (QSS)
 - **Cross-platform**: Works on Windows, macOS, and Linux
-
-## 🖼️ Screenshots
-
-The application features three main tabs:
-
-1. **Performance Tab** - Real-time monitoring dashboard
-2. **Results Tab** - Saved reports and export functionality  
-3. **Info Tab** - Detailed system statistics and information
 
 ## 🛠️ Prerequisites
 
