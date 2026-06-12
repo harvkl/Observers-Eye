@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
         # создаем таймер для апдейта таба с листом процессов
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
-        self.timer.start(10000) # апдейт каждые 3 секунды
+        self.timer.start(3000) # апдейт каждые 3 секунды
 
         self.update_perfomace_tab()
 

@@ -1,26 +1,26 @@
 Report to Owner | Observer's Eye |
 ——————————————————————————————————
 
-CPU: 7.0% | RAM: 43.6% on 2026-06-12 Time: 22:01:26
+CPU: 4.9% | RAM: 44.2% on 2026-06-13 Time: 01:55:06
 
-Processes in descending order by CPU on 2026-06-12 Time: 22:01:26
+Processes in descending order by CPU on 2026-06-13 Time: 01:55:06
 
 ========================================================================================================
-PID: 0 | Name: System Idle Process | CPU: 145.9% | RAM: 0.0%
-PID: 12384 | Name: browser.exe | CPU: 10.1% | RAM: 2.8%
-PID: 6472 | Name: browser.exe | CPU: 1.3% | RAM: 2.0%
-PID: 20204 | Name: python.exe | CPU: 1.0% | RAM: 0.2%
-PID: 17752 | Name: Discord.exe | CPU: 0.8% | RAM: 1.8%
-PID: 1636 | Name: dwm.exe | CPU: 0.2% | RAM: 0.3%
-PID: 10748 | Name: Taskmgr.exe | CPU: 0.2% | RAM: 0.2%
-PID: 4 | Name: System | CPU: 0.1% | RAM: 0.0%
+PID: 0 | Name: System Idle Process | CPU: 154.0% | RAM: 0.0%
+PID: 6684 | Name: python.exe | CPU: 2.0% | RAM: 0.3%
+PID: 956 | Name: csrss.exe | CPU: 0.6% | RAM: 0.0%
+PID: 4 | Name: System | CPU: 0.3% | RAM: 0.1%
+PID: 10748 | Name: Taskmgr.exe | CPU: 0.3% | RAM: 0.2%
+PID: 11220 | Name: audiodg.exe | CPU: 0.3% | RAM: 0.1%
+PID: 18312 | Name: Discord.exe | CPU: 0.3% | RAM: 1.6%
 PID: 104 | Name:  | CPU: 0.0% | RAM: 0.3%
 PID: 180 | Name: Registry | CPU: 0.0% | RAM: 0.2%
+PID: 196 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 1.5%
+PID: 440 | Name: browser.exe | CPU: 0.0% | RAM: 1.0%
 PID: 572 | Name: smss.exe | CPU: 0.0% | RAM: 0.0%
 PID: 744 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 860 | Name: services.exe | CPU: 0.0% | RAM: 0.0%
 PID: 888 | Name: csrss.exe | CPU: 0.0% | RAM: 0.0%
-PID: 956 | Name: csrss.exe | CPU: 0.0% | RAM: 0.0%
 PID: 960 | Name: wininit.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1036 | Name: LsaIso.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1064 | Name: winlogon.exe | CPU: 0.0% | RAM: 0.0%
@@ -31,36 +31,40 @@ PID: 1252 | Name: fontdrvhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1260 | Name: fontdrvhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1356 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 1404 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 1476 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1488 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1516 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1540 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1548 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 1636 | Name: dwm.exe | CPU: 0.0% | RAM: 0.3%
 PID: 1644 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1684 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 1760 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1824 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1872 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1908 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 1956 | Name: steamservice.exe | CPU: 0.0% | RAM: 0.0%
 PID: 1964 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2136 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2172 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2180 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2352 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 2412 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 2412 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 2420 | Name: NVDisplay.Container.exe | CPU: 0.0% | RAM: 0.2%
 PID: 2540 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2564 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2628 | Name: atiesrxx.exe | CPU: 0.0% | RAM: 0.0%
+PID: 2660 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
 PID: 2784 | Name: NVDisplay.Container.exe | CPU: 0.0% | RAM: 0.2%
 PID: 2848 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2856 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2864 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2904 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
 PID: 2920 | Name: atieclxx.exe | CPU: 0.0% | RAM: 0.1%
+PID: 2936 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.4%
 PID: 2964 | Name: conhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 2980 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 2988 | Name: MemCompression | CPU: 0.0% | RAM: 0.2%
+PID: 2988 | Name: MemCompression | CPU: 0.0% | RAM: 1.0%
+PID: 2996 | Name: browser.exe | CPU: 0.0% | RAM: 0.5%
 PID: 3012 | Name: UserOOBEBroker.exe | CPU: 0.0% | RAM: 0.0%
 PID: 3052 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 3060 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
@@ -74,15 +78,15 @@ PID: 3544 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 3668 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 3676 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 3716 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
-PID: 3736 | Name: Code.exe | CPU: 0.0% | RAM: 1.3%
-PID: 3740 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.1%
+PID: 3736 | Name: Code.exe | CPU: 0.0% | RAM: 1.4%
 PID: 3900 | Name: spoolsv.exe | CPU: 0.0% | RAM: 0.1%
 PID: 3928 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
+PID: 3996 | Name: browser.exe | CPU: 0.0% | RAM: 0.5%
 PID: 4008 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4280 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4328 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 4356 | Name: Scheduler.exe | CPU: 0.0% | RAM: 0.0%
-PID: 4392 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 4392 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 4400 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 4412 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4420 | Name: mDNSResponder.exe | CPU: 0.0% | RAM: 0.0%
@@ -91,15 +95,15 @@ PID: 4436 | Name: GigabyteUpdateService.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4444 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 4448 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4460 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 4468 | Name: AppleMobileDeviceService.exe | CPU: 0.0% | RAM: 0.0%
+PID: 4468 | Name: AppleMobileDeviceService.exe | CPU: 0.0% | RAM: 0.1%
 PID: 4508 | Name: RtkAudUService64.exe | CPU: 0.0% | RAM: 0.0%
+PID: 4516 | Name: powershell.exe | CPU: 0.0% | RAM: 0.2%
 PID: 4520 | Name: PnkBstrA.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4540 | Name: pg_ctl.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4564 | Name: nvcontainer.exe | CPU: 0.0% | RAM: 0.1%
 PID: 4584 | Name: service_update.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4664 | Name: vgtray.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4672 | Name: SecurityHealthService.exe | CPU: 0.0% | RAM: 0.0%
-PID: 4680 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
 PID: 4684 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 4732 | Name: OfficeClickToRun.exe | CPU: 0.0% | RAM: 0.2%
 PID: 4772 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
@@ -107,14 +111,14 @@ PID: 4880 | Name: Video.UI.exe | CPU: 0.0% | RAM: 0.0%
 PID: 5072 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 5132 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 5204 | Name: service_update.exe | CPU: 0.0% | RAM: 0.0%
-PID: 5384 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.9%
 PID: 5608 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 5620 | Name: browser.exe | CPU: 0.0% | RAM: 0.3%
+PID: 5620 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
+PID: 5632 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.5%
 PID: 5792 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 5984 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.0%
 PID: 6316 | Name: sihost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 6348 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 6380 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
+PID: 6472 | Name: browser.exe | CPU: 0.0% | RAM: 2.8%
 PID: 6616 | Name: postgres.exe | CPU: 0.0% | RAM: 0.1%
 PID: 6624 | Name: conhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 6720 | Name: postgres.exe | CPU: 0.0% | RAM: 0.0%
@@ -128,17 +132,15 @@ PID: 6864 | Name: explorer.exe | CPU: 0.0% | RAM: 0.6%
 PID: 6896 | Name: postgres.exe | CPU: 0.0% | RAM: 0.0%
 PID: 6904 | Name: postgres.exe | CPU: 0.0% | RAM: 0.0%
 PID: 6920 | Name: postgres.exe | CPU: 0.0% | RAM: 0.0%
-PID: 6928 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.1%
 PID: 7100 | Name: ctfmon.exe | CPU: 0.0% | RAM: 0.1%
 PID: 7164 | Name: Code.exe | CPU: 0.0% | RAM: 1.6%
 PID: 7256 | Name: taskhostw.exe | CPU: 0.0% | RAM: 0.1%
 PID: 7316 | Name: Code.exe | CPU: 0.0% | RAM: 0.4%
-PID: 7368 | Name: browser.exe | CPU: 0.0% | RAM: 0.3%
 PID: 7448 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 7456 | Name: SearchIndexer.exe | CPU: 0.0% | RAM: 0.2%
 PID: 7580 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
 PID: 7828 | Name: nvcontainer.exe | CPU: 0.0% | RAM: 0.1%
-PID: 7856 | Name: nvcontainer.exe | CPU: 0.0% | RAM: 0.2%
+PID: 7856 | Name: nvcontainer.exe | CPU: 0.0% | RAM: 0.3%
 PID: 7872 | Name: mintty.exe | CPU: 0.0% | RAM: 0.1%
 PID: 7884 | Name: browser.exe | CPU: 0.0% | RAM: 0.4%
 PID: 8100 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
@@ -146,7 +148,7 @@ PID: 8752 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 8800 | Name: bash.exe | CPU: 0.0% | RAM: 0.0%
 PID: 9084 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
 PID: 9148 | Name: LockApp.exe | CPU: 0.0% | RAM: 0.2%
-PID: 9200 | Name: Code.exe | CPU: 0.0% | RAM: 0.5%
+PID: 9200 | Name: Code.exe | CPU: 0.0% | RAM: 0.6%
 PID: 9228 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 9236 | Name: CalculatorApp.exe | CPU: 0.0% | RAM: 0.0%
 PID: 9240 | Name: winws.exe | CPU: 0.0% | RAM: 0.0%
@@ -156,6 +158,7 @@ PID: 9364 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 9684 | Name: MoUsoCoreWorker.exe | CPU: 0.0% | RAM: 0.1%
 PID: 9860 | Name: RuntimeBroker.exe | CPU: 0.0% | RAM: 0.1%
 PID: 9904 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 9936 | Name: browser.exe | CPU: 0.0% | RAM: 0.7%
 PID: 9968 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
 PID: 10056 | Name: dllhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 10132 | Name: SearchApp.exe | CPU: 0.0% | RAM: 0.8%
@@ -165,92 +168,85 @@ PID: 10644 | Name: conhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 10648 | Name: dllhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 10688 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 10836 | Name: SystemSettings.exe | CPU: 0.0% | RAM: 0.0%
-PID: 11220 | Name: audiodg.exe | CPU: 0.0% | RAM: 0.1%
 PID: 11236 | Name: Code.exe | CPU: 0.0% | RAM: 0.5%
-PID: 11408 | Name: Telegram.exe | CPU: 0.0% | RAM: 3.4%
+PID: 11408 | Name: Telegram.exe | CPU: 0.0% | RAM: 3.6%
 PID: 11512 | Name: RuntimeBroker.exe | CPU: 0.0% | RAM: 0.1%
-PID: 11520 | Name: Discord.exe | CPU: 0.0% | RAM: 0.5%
 PID: 11524 | Name: browser.exe | CPU: 0.0% | RAM: 2.1%
 PID: 11564 | Name: ApplicationFrameHost.exe | CPU: 0.0% | RAM: 0.1%
 PID: 11604 | Name: Code.exe | CPU: 0.0% | RAM: 0.1%
 PID: 11696 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 12040 | Name: browser.exe | CPU: 0.0% | RAM: 0.7%
+PID: 12040 | Name: browser.exe | CPU: 0.0% | RAM: 0.9%
 PID: 12064 | Name: RtkAudUService64.exe | CPU: 0.0% | RAM: 0.0%
-PID: 12076 | Name: steam.exe | CPU: 0.0% | RAM: 0.3%
 PID: 12140 | Name: TextInputHost.exe | CPU: 0.0% | RAM: 0.2%
-PID: 12228 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.1%
 PID: 12248 | Name: PhoneExperienceHost.exe | CPU: 0.0% | RAM: 0.5%
 PID: 12252 | Name: RuntimeBroker.exe | CPU: 0.0% | RAM: 0.0%
 PID: 12308 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
-PID: 12552 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
-PID: 12628 | Name: Discord.exe | CPU: 0.0% | RAM: 0.1%
-PID: 12828 | Name: Discord.exe | CPU: 0.0% | RAM: 0.7%
+PID: 12384 | Name: browser.exe | CPU: 0.0% | RAM: 1.5%
+PID: 12688 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 12836 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
+PID: 12876 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
 PID: 12952 | Name: RuntimeBroker.exe | CPU: 0.0% | RAM: 0.1%
-PID: 12960 | Name: Discord.exe | CPU: 0.0% | RAM: 0.2%
-PID: 13712 | Name: browser.exe | CPU: 0.0% | RAM: 0.4%
-PID: 13792 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 13712 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
 PID: 13940 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 14088 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
-PID: 14152 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
-PID: 14168 | Name: browser.exe | CPU: 0.0% | RAM: 0.4%
 PID: 14184 | Name: CompPkgSrv.exe | CPU: 0.0% | RAM: 0.0%
+PID: 14556 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 14632 | Name: powershell.exe | CPU: 0.0% | RAM: 0.2%
-PID: 14748 | Name: browser.exe | CPU: 0.0% | RAM: 0.6%
-PID: 14788 | Name: Discord.exe | CPU: 0.0% | RAM: 0.3%
-PID: 14816 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
+PID: 14984 | Name: steam.exe | CPU: 0.0% | RAM: 0.3%
 PID: 14992 | Name: git-bash.exe | CPU: 0.0% | RAM: 0.0%
 PID: 15068 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
 PID: 15128 | Name: Code.exe | CPU: 0.0% | RAM: 0.4%
 PID: 15240 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 15392 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 1.6%
 PID: 15552 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 15628 | Name: browser.exe | CPU: 0.0% | RAM: 0.5%
 PID: 15856 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
 PID: 15948 | Name: Code.exe | CPU: 0.0% | RAM: 0.3%
+PID: 15992 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
 PID: 16000 | Name: CodeSetup-stable-6928394f91b684055b873eecb8bc281365131f1c.exe | CPU: 0.0% | RAM: 0.0%
-PID: 16056 | Name: Code.exe | CPU: 0.0% | RAM: 0.1%
-PID: 16156 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.6%
+PID: 16056 | Name: Code.exe | CPU: 0.0% | RAM: 0.2%
 PID: 16232 | Name: python.exe | CPU: 0.0% | RAM: 0.1%
 PID: 16300 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 16340 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 16360 | Name: svchost.exe | CPU: 0.0% | RAM: 0.1%
+PID: 16812 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.1%
 PID: 16880 | Name: pet.exe | CPU: 0.0% | RAM: 0.0%
 PID: 16892 | Name: conhost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 16904 | Name: powershell.exe | CPU: 0.0% | RAM: 0.2%
-PID: 17096 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
+PID: 17236 | Name: Discord.exe | CPU: 0.0% | RAM: 0.5%
 PID: 17272 | Name: Code.exe | CPU: 0.0% | RAM: 3.5%
 PID: 17292 | Name: OpenConsole.exe | CPU: 0.0% | RAM: 0.0%
-PID: 17324 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 17372 | Name: smartscreen.exe | CPU: 0.0% | RAM: 0.1%
 PID: 17440 | Name: powershell.exe | CPU: 0.0% | RAM: 0.3%
-PID: 17588 | Name: browser.exe | CPU: 0.0% | RAM: 0.4%
 PID: 17648 | Name: OpenConsole.exe | CPU: 0.0% | RAM: 0.0%
-PID: 18196 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
-PID: 18240 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
+PID: 18380 | Name: browser.exe | CPU: 0.0% | RAM: 0.3%
 PID: 18556 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 18580 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
-PID: 18768 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
 PID: 18772 | Name: CodeSetup-stable-6928394f91b684055b873eecb8bc281365131f1c.tmp | CPU: 0.0% | RAM: 0.1%
-PID: 19076 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
+PID: 18880 | Name: browser.exe | CPU: 0.0% | RAM: 0.7%
 PID: 19096 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
 PID: 19116 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
-PID: 19132 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.1%
-PID: 19180 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
-PID: 19392 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
-PID: 19504 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
+PID: 19484 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
+PID: 19544 | Name: browser.exe | CPU: 0.0% | RAM: 0.2%
+PID: 19564 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.8%
+PID: 19736 | Name: OpenConsole.exe | CPU: 0.0% | RAM: 0.0%
 PID: 19788 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
-PID: 19844 | Name: svchost.exe | CPU: 0.0% | RAM: 0.0%
+PID: 19952 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.1%
 PID: 20136 | Name: OpenConsole.exe | CPU: 0.0% | RAM: 0.0%
-PID: 20216 | Name: browser.exe | CPU: 0.0% | RAM: 0.1%
-PID: 20440 | Name: browser.exe | CPU: 0.0% | RAM: 0.4%
+PID: 20176 | Name: steamwebhelper.exe | CPU: 0.0% | RAM: 0.1%
+PID: 20216 | Name: browser.exe | CPU: 0.0% | RAM: 0.6%
+PID: 20276 | Name: browser.exe | CPU: 0.0% | RAM: 0.0%
+PID: 20280 | Name: steamservice.exe | CPU: 0.0% | RAM: 0.0%
+PID: 20608 | Name: Discord.exe | CPU: 0.0% | RAM: 0.1%
+PID: 21268 | Name: Discord.exe | CPU: 0.0% | RAM: 0.3%
+PID: 21308 | Name: Discord.exe | CPU: 0.0% | RAM: 0.5%
+PID: 21480 | Name: Discord.exe | CPU: 0.0% | RAM: 0.2%
 ========================================================================================================
 
 
 ========================================================================================================
 CPU stats:
-    Context switches: 902521507
-    Interrupts: 614134992
+    Context switches: 1344689812
+    Interrupts: 906850807
     Soft interrupts: 0
-    System calls: 2782746159
+    System calls: 4011325236
 
 System AVG load for 1, 5, 15 minutes: 0.00, 0.00, 0.00
   Current utilization: 0.0%
