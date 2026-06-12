@@ -61,6 +61,7 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(widget)
 
         self.label = QLabel("PERFORMANCE MONITORING")
+        self.label.setObjectName("label")
         self.current_cpu_status_label = QLabel("CPU: ??")
         self.current_ram_status_label = QLabel("RAM: ??")
 
@@ -75,6 +76,7 @@ class MainWindow(QMainWindow):
         self.info_list = QListWidget()
         self.table_info_list = QTableWidget()
 
+        self.info_list.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff) # убираем навсегда горизонтальный скролл для листа
         self.info_list.setFixedHeight(425)
         self.info_list.setDisabled(True) # ставим лист по дефолту выключенным
         self.info_list.setVisible(False) # ставим лист по дефолту невидимым
@@ -98,6 +100,7 @@ class MainWindow(QMainWindow):
 
         self.kill_button = QPushButton("Select and kill the process")
         self.note_label = QLabel("*Note: the percentage of usage that shows for the System Idle Process shows not the CPU usage, but the percent of available resources for other processes.")
+        self.note_label.setObjectName("note_label")
         self.switch_list_table_button = QPushButton("Switch process display mode")
 
         layout.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignCenter)
@@ -121,13 +124,18 @@ class MainWindow(QMainWindow):
 
     def create_results_tab(self):
         widget = QWidget()
-        #widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
         layout = QVBoxLayout(widget)
 
         self.res_label = QLabel("RESULTS")
+        self.res_label.setObjectName("res_label")
+        self.saved_res_text_edit = QTextEdit()
+        self.saved_res_text_edit.setObjectName("saved_res_text_edit")
         self.save_button = QPushButton("Save the results in .txt file?")
 
+        self.saved_res_text_edit.setReadOnly(True)
+
         layout.addWidget(self.res_label, alignment=Qt.AlignmentFlag.AlignHCenter)
+        layout.addWidget(self.saved_res_text_edit, alignment=Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(self.save_button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         # подключаем кнопочку сохранения к методу который сохраняет резы
@@ -141,14 +149,18 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout(widget)
 
         self.info_label = QLabel("INFO ABOUT THE PROGRAMM")
+        self.info_label.setObjectName("info_label")
         self.text_block = QTextEdit()
+        self.text_block.setObjectName("text_block")
+        self.saved_info_text_edit = QTextEdit()
+        self.saved_info_text_edit.setObjectName("saved_info_text_edit")
 
         self.text_block.setFixedSize(830, 80)
 
-        self.cpu_stats_since_load = QLabel("")
-        self.cpu_usage_avg = QLabel("")
-        self.cpu_freq = QLabel("")
-        self.boot_time_label = QLabel("")
+        #self.cpu_stats_since_load = QLabel("")
+        #self.cpu_usage_avg = QLabel("")
+        #self.cpu_freq = QLabel("")
+        #self.boot_time_label = QLabel("")
 
         self.get_info_tab_button = QPushButton("Get stats!")
 
@@ -156,13 +168,15 @@ class MainWindow(QMainWindow):
 
         self.text_block.setText(f"Hello, {self.users[0].name}. This is a simple tool that shows us information about the current processes and CPU status. This program was created by an enthusiast, so don't be hard on me.")
         self.text_block.setReadOnly(True)
+        self.saved_info_text_edit.setReadOnly(True)
 
-        layout.addWidget(self.info_label, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.info_label, alignment=Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(self.text_block, alignment=Qt.AlignmentFlag.AlignHCenter)
-        layout.addWidget(self.cpu_stats_since_load)
-        layout.addWidget(self.cpu_usage_avg)
-        layout.addWidget(self.cpu_freq)
-        layout.addWidget(self.boot_time_label)
+        #layout.addWidget(self.cpu_stats_since_load)
+        #layout.addWidget(self.cpu_usage_avg)
+        #layout.addWidget(self.cpu_freq)
+        #layout.addWidget(self.boot_time_label)
+        layout.addWidget(self.saved_info_text_edit, alignment=Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(self.get_info_tab_button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         # подключаем кнопочку получения инфы к методу получения инфы
@@ -240,15 +254,27 @@ class MainWindow(QMainWindow):
 
                     f.write("========================================================================================================\n\n")
 
-                    if self.cpu_stats_since_load.text() != "":
+                    if self.saved_info_text_edit.document().isEmpty() != True:
                         f.write("\n========================================================================================================")
                         f.write(f"\nCPU stats:\n    Context switches: {self.ctx_switches}\n    Interrupts: {self.interrupts}\n    Soft interrupts: {self.soft_interrupts}\n    System calls: {self.sys_calls}")
                         f.write(f"\n\nSystem AVG load for 1, 5, 15 minutes: {self.l1:.2f}, {self.l5:.2f}, {self.l15:.2f}\n  Current utilization: {self.curr_util:.1f}%")
                         f.write(f"\n\nCurrent CPU frequency: {self.curr_cpu_freq} MHz\n    Minimum CPU frequency: {self.min_cpu_freq} MHz\n    Maximum CPU frequency: {self.max_cpu_freq} MHz")
                         f.write(f"\n\nSystem is running since: {self.readable_time}")
                         f.write("\n========================================================================================================")
-                    
+
+
                     QMessageBox.information(self, "Success", f"The results were saved in {file_path}")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Couldn't save: {e}")
+            
+            # делаем отображение на экране сохраненного файла
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    all_lines = f.readlines()
+                    text_content = "".join(all_lines)
+                    self.saved_res_text_edit.setPlainText(text_content)
+                    self.res_label.setText(f"RESULTS\nContent of {file_path}")
+                    self.res_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Couldn't save: {e}")
 
@@ -301,11 +327,12 @@ class MainWindow(QMainWindow):
         self.min_cpu_freq = round(psutil.cpu_freq().min, 2)
         self.max_cpu_freq = round(psutil.cpu_freq().max, 2)
 
-        self.cpu_stats_since_load.setText(f"CPU stats:\n    Context switches: {self.ctx_switches}\n    Interrupts: {self.interrupts}\n    Soft interrupts: {self.soft_interrupts}\n    System calls: {self.sys_calls}")
-        self.cpu_usage_avg.setText(f"System AVG load for 1, 5, 15 minutes: {self.l1:.2f}, {self.l5:.2f}, {self.l15:.2f}\n  Current utilization: {self.curr_util:.1f}%")
-        self.cpu_freq.setText(f"Current CPU frequency: {self.curr_cpu_freq} MHz\n    Minimum CPU frequency: {self.min_cpu_freq} MHz\n    Maximum CPU frequency: {self.max_cpu_freq} MHz")
-        self.boot_time_label.setText(f"System is running since: {self.readable_time}")
+        self.saved_info_text_edit.setText(f"CPU stats:\n    Context switches: {self.ctx_switches}\n    Interrupts: {self.interrupts}\n    Soft interrupts: {self.soft_interrupts}\n    System calls: {self.sys_calls}\n\nSystem AVG load for 1, 5, 15 minutes: {self.l1:.2f}, {self.l5:.2f}, {self.l15:.2f}\n  Current utilization: {self.curr_util:.1f}%\n\nCurrent CPU frequency: {self.curr_cpu_freq} MHz\n    Minimum CPU frequency: {self.min_cpu_freq} MHz\n    Maximum CPU frequency: {self.max_cpu_freq} MHz\n\nSystem is running since: {self.readable_time}")
 
+        #self.cpu_stats_since_load.setText(f"CPU stats:\n    Context switches: {self.ctx_switches}\n    Interrupts: {self.interrupts}\n    Soft interrupts: {self.soft_interrupts}\n    System calls: {self.sys_calls}")
+        #self.cpu_usage_avg.setText(f"System AVG load for 1, 5, 15 minutes: {self.l1:.2f}, {self.l5:.2f}, {self.l15:.2f}\n  Current utilization: {self.curr_util:.1f}%")
+        #self.cpu_freq.setText(f"Current CPU frequency: {self.curr_cpu_freq} MHz\n    Minimum CPU frequency: {self.min_cpu_freq} MHz\n    Maximum CPU frequency: {self.max_cpu_freq} MHz")
+        #self.boot_time_label.setText(f"System is running since: {self.readable_time}")
 
     def switch_list_table(self):
         if self.info_list_disabled: # если лист выключен то включаем
