@@ -1,0 +1,17 @@
+certifi==2025.6.15
+cffi==1.17.1
+charset-normalizer==3.4.2
+colorama==0.4.6
+cryptography==45.0.4
+curl_cffi==0.11.4
+discord-webhook==1.4.1
+idna==3.10
+primp==0.15.0
+psutil==7.2.2
+pycparser==2.22
+PyQt6==6.11.0
+PyQt6-Qt6==6.11.0
+PyQt6_sip==13.11.1
+PySocks==1.7.1
+requests==2.32.4
+urllib3==2.5.0
