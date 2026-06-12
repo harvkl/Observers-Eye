@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
         # создаем таймер для апдейта таба с листом процессов
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_perfomace_tab) # коннектим функцию на таймер
-        self.timer.start(3000) # апдейт каждые 3 секунды
+        self.timer.start(10000) # апдейт каждые 3 секунды
 
         self.update_perfomace_tab()
 
@@ -59,7 +59,8 @@ class MainWindow(QMainWindow):
         widget = QWidget()
         #widget.setStyleSheet("background-color: #E6E6FA; font-family: 'Roboto', Arial, sans-serif; font-size: 25px;")
         layout = QVBoxLayout(widget)
-
+        additional_support_layout = QHBoxLayout() # создаем для кнопки и чекбокса в одно строчке
+    
         self.label = QLabel("PERFORMANCE MONITORING")
         self.label.setObjectName("label")
         self.current_cpu_status_label = QLabel("CPU: ??")
@@ -99,9 +100,15 @@ class MainWindow(QMainWindow):
         self.table_info_list.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection) # делаем так чтобы можно было выбрать только один процесс за раз
 
         self.kill_button = QPushButton("Select and kill the process")
+        self.kill_button.setObjectName("kill_button")
         self.note_label = QLabel("*Note: the percentage of usage that shows for the System Idle Process shows not the CPU usage, but the percent of available resources for other processes.")
         self.note_label.setObjectName("note_label")
+        self.check_box_kill_all = QCheckBox("Terminate all subprocesses?")
+        self.check_box_kill_all.setObjectName("check_box_kill_all")
         self.switch_list_table_button = QPushButton("Switch process display mode")
+
+        additional_support_layout.addWidget(self.check_box_kill_all)
+        additional_support_layout.addWidget(self.kill_button, alignment=Qt.AlignmentFlag.AlignCenter)
 
         layout.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.current_cpu_status_label, alignment=Qt.AlignmentFlag.AlignCenter)
@@ -110,7 +117,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.ram_bar)
         layout.addWidget(self.info_list)
         layout.addWidget(self.table_info_list)
-        layout.addWidget(self.kill_button, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addLayout(additional_support_layout)
         layout.addWidget(self.note_label, alignment=Qt.AlignmentFlag.AlignLeft)
         layout.addWidget(self.switch_list_table_button, alignment=Qt.AlignmentFlag.AlignCenter)
 
@@ -282,30 +289,67 @@ class MainWindow(QMainWindow):
     def kill_process(self, pid):
         selected_item = self.info_list.selectedItems() # получаем выбранный итем из списка который удалим
 
-        if self.info_list_disabled: # если у нас таблица
-            # пытаемся извлечь пид процесса
-            try:
-                selected_table_item = self.table_info_list.selectedItems() # получаем выбранный из таблицы итем который удалим
-                table_item_text = selected_table_item[0].text()
-                pid = int(table_item_text) # извлекаем pid для таблицы
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Pick the process: {e}")
-        elif not self.info_list_disabled: # если у нас лист
-            # пытаемся извлечь пид процесса
-            try:
-                selected_item = self.info_list.selectedItems() # получаем выбранный итем из списка который удалим
-                item_text = selected_item[0].text()
-                pid = int(item_text.split(' | ')[0].split(': ')[1]) # извлекаем pid для списка
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Pick the process: {e}")
+        # чекаем не нужно ли киллять подпроцессы
+        if self.check_box_kill_all.isChecked() != True:
+            if self.info_list_disabled: # если у нас таблица
+                # пытаемся извлечь пид процесса
+                try:
+                    selected_table_item = self.table_info_list.selectedItems() # получаем выбранный из таблицы итем который удалим
+                    table_item_text = selected_table_item[0].text()
+                    pid = int(table_item_text) # извлекаем pid для таблицы
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"Pick the process: {e}")
+            elif not self.info_list_disabled: # если у нас лист
+                # пытаемся извлечь пид процесса
+                try:
+                    selected_item = self.info_list.selectedItems() # получаем выбранный итем из списка который удалим
+                    item_text = selected_item[0].text()
+                    pid = int(item_text.split(' | ')[0].split(': ')[1]) # извлекаем pid для списка
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"Pick the process: {e}")
 
-        # пытаемся термнуть процесс по его pid'у
-        try:
-            process_to_kill = psutil.Process(pid)
-            process_to_kill.terminate()
-            QMessageBox.information(self, "Success", f"Process with PID: {pid} was terminated")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Couldn't kill the process: {e}")
+            # пытаемся термнуть процесс по его pid'у
+            try:
+                process_to_kill = psutil.Process(pid)
+                process_to_kill.terminate()
+                QMessageBox.information(self, "Success", f"Process with PID: {pid} was terminated")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Couldn't kill the process: {e}")
+
+        elif self.check_box_kill_all.isChecked():
+            if self.info_list_disabled: # если у нас таблица
+                # траим получить подпроцесы и кильнуть их
+                try:
+                    selected_table_item = self.table_info_list.selectedItems() # получаем выбранный из таблицы итем который удалим
+                    table_item_text = selected_table_item[0].text()
+                    table_item_text_name = selected_table_item[1].text()
+                    
+                    for proc in psutil.process_iter(['pid', 'name']):
+                        try:
+                            if proc.info['name'] == table_item_text_name:
+                                proc.terminate()
+                        except Exception as e:
+                            QMessageBox.critical(self, "Error", f"Cause: {e}")
+
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"Cause: {e}")
+
+            elif not self.info_list_disabled: # если у нас лист
+                # траим получить подпроцесы и кильнуть их
+                try:
+                    selected_item = self.info_list.selectedItems() # получаем выбранный итем из списка который удалим
+                    item_text = selected_item[0].text()
+                    item_text_name = str(item_text.split(' | ')[1].split(': ')[1])
+
+                    for proc in psutil.process_iter(['pid', 'name']):
+                        try:
+                            if proc.info['name'] == item_text_name:
+                                proc.terminate()
+                        except Exception as e:
+                            QMessageBox.critical(self, "Error", f"Cause: {e}")
+
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"Cause: {e}")
 
     
     def get_stats_for_info_tab(self):

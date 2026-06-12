@@ -1,7 +1,44 @@
+QCheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    background-color: white;
+}
+
+/* При наведении */
+QCheckBox::indicator:hover {
+    border-color: #ffa033;
+    background-color: #f0f8ff;
+}
+
+/* Когда отмечен */
+QCheckBox::indicator:checked {
+    background-color: #da7400;
+    border-color: #ffa033;
+}
+
+/* Когда отключен */
+QCheckBox::indicator:disabled {
+    background-color: #e0e0e0;
+    border-color: #cccccc;
+}
+
 #label, #info_label, #res_label {
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 20px;
     margin: 5px 0px 0px 0px;
+}
+
+#kill_button {
+    margin: 0px 235px 0px 0px;
+}
+
+#check_box_kill_all {
+    color: #ffa033;
+    font-weight: 200;
+    font-family: Tahoma, Geneva, sans-serif;
+    margin: 00px 0px 0px 10px;
 }
 
 #info_label {
