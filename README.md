@@ -1,8 +1,6 @@
-# Observer's Eye - System Monitoring Tool
+# ![Observer's Eye](media/eye.png) Observer's Eye - System Monitoring Tool
 
 A lightweight, cross-platform system monitoring application built with Python and PyQt6 that provides real-time insights into your system's performance, processes, and resource utilization.
-
-![Observer's Eye](media/eye.png)
 
 ## 📋 Table of Contents
 
@@ -45,20 +43,7 @@ Before you begin, ensure you have the following installed:
 git clone https://github.com/harvkl/Observers-Eye.git
 cd Observers-Eye
 ```
-
-### 2. Create a Virtual Environment (Recommended)
-
-```bash
-# On Windows
-python -m venv venv
-venv\Scripts\activate
-
-# On macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -67,8 +52,6 @@ pip install -r requirements.txt
 This will install all required packages including:
 - PyQt6 (GUI framework)
 - psutil (system and process utilities)
-- discord-webhook (optional webhook notifications)
-- requests and related HTTP libraries
 
 ## 🚀 Usage
 
@@ -141,10 +124,6 @@ Observers-Eye/
 |---------|---------|---------|
 | PyQt6 | 6.11.0 | GUI framework |
 | psutil | 7.2.2 | System and process monitoring |
-| requests | 2.32.4 | HTTP library |
-| discord-webhook | 1.4.1 | Webhook notifications |
-| colorama | 0.4.6 | Cross-platform colored terminal text |
-| cryptography | 45.0.4 | Cryptographic recipes and primitives |
 
 See [`requirements.txt`](requirements.txt) for the complete list of dependencies with exact versions.
 
@@ -167,13 +146,6 @@ Contributions are welcome! Here's how you can help:
 - Notification integrations
 - Documentation improvements
 - Translation support
-
-### Code Style
-
-- Follow PEP 8 guidelines for Python code
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Maintain the existing project structure
 
 ## 📄 License
 
